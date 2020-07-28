@@ -24,3 +24,6 @@ Version 1.00
         changed 'use single repository' checkbox to radio buttons on path fields (removed checkbox)
         Added 'Distribute SCCM Packages' ($DistributeCMPackages) variable use in INI file
             -- when selected, sends command to CM to Distribute packages, otherwise SCCM packages are created/updated only
+    Version 1.30
+        Added ability to sync specific softpaqs by name - listed in INI file
+            -- added SqName entry to $HPModelsTable list to hold special softpaqs needed/model
