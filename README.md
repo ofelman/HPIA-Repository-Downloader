@@ -27,3 +27,8 @@ Version 1.00
     Version 1.30
         Added ability to sync specific softpaqs by name - listed in INI file
             -- added SqName entry to $HPModelsTable list to hold special softpaqs needed/model
+    Version 1.31
+        moved Debug Mode checkbox to bottom
+        added HPIA folder view, and HPIA button to initiate a create/update package in CM
+    Version 1.32
+        Moved HPIA button and file path to SCCM group in UI
