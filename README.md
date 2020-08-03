@@ -32,3 +32,10 @@ Version 1.00
         added HPIA folder view, and HPIA button to initiate a create/update package in CM
     Version 1.32
         Moved HPIA button and file path to SCCM group in UI
+    Version 1.40
+        increased windows size based on feedback
+        added checkmark to keep existing category filters - useful when maintaining Softpaqs for more than a single OS Version
+        added checks for, and report on, CMSL Repository Sync errors 
+        added function to list current category filters
+        added separate function to modify setting in INI.ps1 file
+        added buttons to increase and decrease output textbox text size
