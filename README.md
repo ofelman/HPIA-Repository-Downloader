@@ -39,3 +39,5 @@ Version 1.00
         added function to list current category filters
         added separate function to modify setting in INI.ps1 file
         added buttons to increase and decrease output textbox text size
+    Version 1.41
+        added IP lookup for internet connetion local and remote - useful for debugging... post to HPA's log file
