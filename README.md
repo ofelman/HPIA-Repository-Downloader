@@ -41,3 +41,6 @@ Version 1.00
         added buttons to increase and decrease output textbox text size
     Version 1.41
         added IP lookup for internet connetion local and remote - useful for debugging... post to HPA's log file
+    Version 1.45
+        added New Function w/job to trace connections to/from HP (not always 100% !!!)
+        added log file name path to UI
