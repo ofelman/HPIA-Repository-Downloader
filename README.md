@@ -44,3 +44,6 @@ Version 1.00
     Version 1.45
         added New Function w/job to trace connections to/from HP (not always 100% !!!)
         added log file name path to UI
+    Version 1.50
+        added protection against Platform/OS Version not supported
+        Added ability to start a New log file w/checkmark in IU - log saved to log.bak0,log.bak1, etc.
