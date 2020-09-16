@@ -47,3 +47,5 @@ Version 1.00
     Version 1.50
         added protection against Platform/OS Version not supported
         Added ability to start a New log file w/checkmark in IU - log saved to log.bak0,log.bak1, etc.
+    Version 1.62
+        added runtime options to allow the script to run on a schedule
