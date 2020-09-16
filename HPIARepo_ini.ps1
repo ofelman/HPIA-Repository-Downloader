@@ -9,7 +9,7 @@
 
 $OS = "Win10"
 $OSVER = "1909"
-$OSVALID = @("1809", "1903", "1909", "2004")
+$OSVALID = @("1803", "1809", "1903", "1909", "2004")
 
 $FilterCategories = @('Driver','BIOS', 'Firmware', 'Software')
 
@@ -23,11 +23,13 @@ $NBSet2 = 'HP Hotkey Support' , 'System Default Settings for Windows 10' , 'HP N
 $DTSet1 = 'HP Notifications'
 
 $HPModelsTable = @(
+	@{ ProdCode = '80D4'; Model ="HP ZBook Studio G3" }	
 	@{ ProdCode = '8598'; Model = "HP ProDesk 600 G5 DM";                   SqName = $DTSet1  }
 	@{ ProdCode = '8438'; Model = "HP EliteBook x360 1030 G3";              SqName = $NBSet1  }
 	@{ ProdCode = '83B3'; Model = "HP ELITEBOOK 830 G5";                    SqName = $NBSet1  }
 	@{ ProdCode = '83B2'; Model = "HP ELITEBOOK 840 G5";                    SqName = $NBSet1  }
 	@{ ProdCode = '8549'; Model = "HP ELITEBOOK 840 G6";                    SqName = $NBSet2  }
+	@{ ProdCode = '8723'; Model = "HP ELITEBOOK 840 G7";                    SqName = $NBSet2  }
 	@{ ProdCode = '8470'; Model = "HP ELITEBOOK X360 1040 G5";              SqName = $NBSet1  }
 	@{ ProdCode = '844F'; Model = "HP ZBook Studio x360 G5";                SqName = $NBSet1  }
 	@{ ProdCode = '8593'; Model = "HP EliteDesk 800 G5 Desktop Mini PC";    SqName = $DTSet1  }
@@ -62,7 +64,7 @@ $LogFile = "$PSScriptRoot\HPDriverPackDownload.log"               # Default to l
 #-------------------------------------------------------------------
 # next setting makes the script work with Microsoft SCCM/MECM, if set to $true
 # it can be modified in the main script, as needed
-$UpdateCMPackages = $False
+$UpdateCMPackages = $True
 $DistributeCMPackages = $False
 
 #-------------------------------------------------------------------
@@ -71,7 +73,7 @@ $KeepFilters = $False
 
 #-------------------------------------------------------------------
 # 7/21 NEW: manage single repository folder, instead of individual per model
-$CommonRepo = $False
+$CommonRepo = $True
 
 # if there errors during startup, set this to $true, for additional info
 $DebugMode = $false
