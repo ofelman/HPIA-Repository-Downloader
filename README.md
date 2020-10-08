@@ -49,3 +49,9 @@ Version 1.00
         Added ability to start a New log file w/checkmark in IU - log saved to log.bak0,log.bak1, etc.
     Version 1.62
         added runtime options to allow the script to run on a schedule
+    Version 1.65
+        added support for INI Software named by ID, not just by name
+        added Browse button to find HPIA folder
+    Version 1.66
+        add [Sync] dialog to ask if unselected products' filters should be removed from common repository
+
