@@ -54,4 +54,6 @@ Version 1.00
         added Browse button to find HPIA folder
     Version 1.66
         add [Sync] dialog to ask if unselected products' filters should be removed from common repository
+    Version 1.70
+        add setting checkbox to keep going on Sync missing file errors... requires new variable kept in INI file
 
