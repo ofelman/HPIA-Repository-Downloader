@@ -89,6 +89,6 @@ $HPIAPath = '\\CM01\Share\Applications\SP107374 HPIA 5.0.2'
 
 $UpdateCMPackages = $False
 $DistributeCMPackages = $False
-$Continueon404 = $False             # 10/20 NEW: setting to keep filters (script version 1.70)
+$Continueon404 = $True              # 10/20 NEW: setting to keep filters (script version 1.70)
 $KeepFilters = $False               # 7/31 NEW: setting to keep filters (script version 1.35)
 $CommonRepo = $True                 # 7/21 NEW: manage single repository folder, instead of individual per model
