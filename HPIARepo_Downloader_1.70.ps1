@@ -1572,7 +1572,7 @@ Function CreateForm {
     $SharePathTextField.Text = "$RepoShareMain"
     $SharePathTextField.Multiline = $false 
     $SharePathTextField.location = New-Object System.Drawing.Point(($LeftOffset+80),($TopOffset-4)) # (from left, from top)
-    $SharePathTextField.Size = New-Object System.Drawing.Size(390,$FieldHeight)             # (width, height)
+    $SharePathTextField.Size = New-Object System.Drawing.Size(380,$FieldHeight)             # (width, height)
     $SharePathTextField.ReadOnly = $true
     $SharePathTextField.Name = "Share_Path"
 
@@ -1585,7 +1585,7 @@ Function CreateForm {
     $SharePathSingleTextField.Text = "$RepoShareCommon"
     $SharePathSingleTextField.Multiline = $false 
     $SharePathSingleTextField.location = New-Object System.Drawing.Point(($LeftOffset+80),($TopOffset+15)) # (from left, from top)
-    $SharePathSingleTextField.Size = New-Object System.Drawing.Size(390,$FieldHeight)             # (width, height)
+    $SharePathSingleTextField.Size = New-Object System.Drawing.Size(380,$FieldHeight)             # (width, height)
     $SharePathSingleTextField.ReadOnly = $true
     $SharePathSingleTextField.Name = "Single_Share_Path"
     #$SharePathSingleTextField.BorderStyle = 'None'                                           # 'none', 'FixedSingle', 'Fixed3D (default)'
@@ -1633,8 +1633,8 @@ Function CreateForm {
     } # $CommonRepoRadio_Click
 
     $PathsGroupBox = New-Object System.Windows.Forms.GroupBox
-    $PathsGroupBox.location = New-Object System.Drawing.Point(($LeftOffset+350),($TopOffset-10)) # (from left, from top)
-    $PathsGroupBox.Size = New-Object System.Drawing.Size(($FormWidth-400),60)                    # (width, height)
+    $PathsGroupBox.location = New-Object System.Drawing.Point(($LeftOffset+355),($TopOffset-10)) # (from left, from top)
+    $PathsGroupBox.Size = New-Object System.Drawing.Size(($FormWidth-415),60)                    # (width, height)
     $PathsGroupBox.text = "Repository Paths - from $($IniFile):"
 
     $ShareButton.Add_Click( $CommonRepoRadio_Click )
