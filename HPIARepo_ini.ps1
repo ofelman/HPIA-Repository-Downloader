@@ -52,7 +52,7 @@ $RepoShareMain = $RepoShareMain = "\\$($FileServerName)\share\softpaqs\HPIARepoH
 
 # and this for use when selecting a single repository (use with Script version >= 1.15
 #$RepoShareCommon = "\\$($FileServerName)\share\softpaqs\HPIACommonRepository"
-$RepoShareCommon = "C:\HPIACommonRepository - Copy"
+$RepoShareCommon = "C:\HPIACommonRepository"
 
 #-------------------------------------------------------------------
 
