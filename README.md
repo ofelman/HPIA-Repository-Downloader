@@ -4,9 +4,11 @@ Version 1.00
     Version 1.10
         added ability to maintain single repository - setting also kept int INI file
         added function to try and import and load HPCMSL powershell module
+        
     Version 1.11
         fix GUI when selecting/deslection All rows checkmark (added call to get_filters to reset categories)
         added form button (at the bottom of the form) to clear textbox
+        
     Version 1.12
         fix interface issues when selecting/deselecting all rows (via header checkmark)
     Versoin 1.15
