@@ -75,6 +75,6 @@ Version 1.00
         add setting checkbox to keep going on Sync missing file errors... requires new variable kept in INI file
         
     Version 1.75
-        add ability ti Import an existing repository, as well as do a OS supported version check on the grid platforms
+        add ability to Import an existing repository, as well as do a OS supported version check on the grid platforms
         
 
