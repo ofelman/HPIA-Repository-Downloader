@@ -77,4 +77,9 @@ Version 1.00
     Version 1.75
         add ability to Import an existing repository, as well as do a OS supported version check on the grid platforms
         
+    Version 1.80
+        added ability to browse for existing (or create new) repositories and start using those
+        moved the 'Sync' button to are below the models grid and renamed as  'Sync Repository'
+        moved MEM CM/SCCM settings below the main script area and highlighted as separate function
+        
 
