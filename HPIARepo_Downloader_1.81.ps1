@@ -1594,10 +1594,8 @@ Function Import_IndividualRepos {
     $lDirectories = (ls -Directory)
 
     if ( $lDirectories.count -eq 0 ) {
-    'count = 0' | Out-Host
         Populate_Grid_from_INI $pDataGrid $Script:HPModelsTable
         Get_Filters $pDataGrid $False
-    'count still = 0' | Out-Host ; pause
     } else {
     'count > 0' | Out-Host ; pause
         foreach ( $lProdName in $lDirectories ) {
