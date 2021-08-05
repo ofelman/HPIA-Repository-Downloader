@@ -611,7 +611,6 @@ Function init_repository {
     $lCurrentLoc = Get-Location
 
     $retRepoCreated = $false
-
     if ( (Test-Path $pRepoFolder) -and ($pInitialize -eq $false) ) {
         $retRepoCreated = $true
     } else {
@@ -1594,25 +1593,31 @@ Function Import_IndividualRepos {
     # Let's search for repositories at this location
     $lDirectories = (ls -Directory)
 
-    foreach ( $lProdName in $lDirectories ) {
-        $lRepoFolderFullPath = $pCurrentRepository+'\'+$lProdName
-        Set-Location $lRepoFolderFullPath
-        Try {
-            $lRepoFilters = (Get-RepositoryInfo).Filters
-            CMTraceLog -Message  "... Repository Found ($($lRepoFolderFullPath))" -Type $TypeNorm
-            CMTraceLog -Message  "... reading repository filters" -Type $TypeNorm
-            [void]$pDataGrid.Rows.Add(@( $true, $lRepoFilters.platform, $lProdName ))
-        } Catch {
-            CMTraceLog -Message  "... NOT a Repository: ($($lRepoFolderFullPath))" -Type $TypeNorm
-        } # Catch
-    } # foreach ( $lProdName in $lDirectories )
+    if ( $lDirectories.count -eq 0 ) {
+    'count = 0' | Out-Host
+        Populate_Grid_from_INI $pDataGrid $Script:HPModelsTable
+        Get_Filters $pDataGrid $False
+    'count still = 0' | Out-Host ; pause
+    } else {
+    'count > 0' | Out-Host ; pause
+        foreach ( $lProdName in $lDirectories ) {
+            $lRepoFolderFullPath = $pCurrentRepository+'\'+$lProdName
+            Set-Location $lRepoFolderFullPath
+            Try {
+                $lRepoFilters = (Get-RepositoryInfo).Filters
+                CMTraceLog -Message  "... Repository Found ($($lRepoFolderFullPath))" -Type $TypeNorm
+                CMTraceLog -Message  "... reading repository filters" -Type $TypeNorm
+                [void]$pDataGrid.Rows.Add(@( $true, $lRepoFilters.platform, $lProdName ))
+            } Catch {
+                CMTraceLog -Message  "... NOT a Repository: ($($lRepoFolderFullPath))" -Type $TypeNorm
+            } # Catch
+        } # foreach ( $lProdName in $lDirectories )
+        CMTraceLog -Message  "... Getting Filters from repositories"
+        Read_IndividualRepofilters $pDataGrid $pCurrentRepository $True
+        CMTraceLog -Message  "... Updating UI and INI Path"
+        Update_UIandINI $pCurrentRepository $False
+    } # else if ( $lDirectories.count -eq 0 )
 
-    CMTraceLog -Message  "... Getting Filters from repositories"
-    Read_IndividualRepofilters $pDataGrid $pCurrentRepository $True
-    CMTraceLog -Message  "... Updating UI and INI Path"
-    Update_UIandINI $pCurrentRepository $False
-    Update_INIModels $pDataGrid $pCurrentRepository $False  # $False means treat as head of individual repositories
-    
     if ( $DebugMode ) { CMTraceLog -Message '< Import_IndividualRepos]' -Type $TypeNorm }
 
 } # Function Import_IndividualRepos
@@ -1687,7 +1692,7 @@ Function Import_CommonRepo {
 
     if ( $DebugMode ) { CMTraceLog -Message '> Import_CommonRepo' -Type $TypeNorm }
 
-    if ( [string]::IsNullOrEmpty($pCurrentRepository) ) {
+    if ( ([string]::IsNullOrEmpty($pCurrentRepository)) -or (-not (Test-Path $pCurrentRepository)) ) {
         CMTraceLog -Message  "... No Repository to import" -Type $TypeWarn
         return
     }
@@ -2169,7 +2174,7 @@ Function CreateForm {
                     if ( ([string]::IsNullOrEmpty($lIndividualPath)) -or `
                          (-not (Test-Path $lIndividualPath)) ) {
                         Write-Host "Individual Repository Path in INI file not found: $($lIndividualPath)" -ForegroundColor Red
-                        Init_Repository $lCommonPath $False
+                        Init_Repository $lIndividualPath $False
                     }
                     $SharedRadioButton.Checked = $true 
                     $SharePathTextField.BackColor = $BackgroundColor
