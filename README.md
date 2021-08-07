@@ -82,7 +82,8 @@ Version 1.00
         moved the 'Sync' button to are below the models grid and renamed as  'Sync Repository'
         moved MEM CM/SCCM settings below the main script area and highlighted as separate function
    
-   Version 1.81
+   Version 1.82
         fixes to several issues, including starting from new listed repository to importing existing repositories
+        Improves use of Add On Softpaqs in INI file and repositories
         
 
