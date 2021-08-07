@@ -34,14 +34,14 @@ $v_Softpaqs = @(
 # { ProdCode = '8723'; Model = 'HP ZBook Firefly 14 G7 Mobile Workstation' ; AddOns = 'Hotkey', 'Notifications' }
 
 # HP Models to be listed in the GUI
-# NOTE: field AddOns is optional in the model list, and contain additional HP Softpaqs to be added
+# NOTE: field 'SqName' is optional in the model list, and contain additional HP Softpaqs to be added
 #     and maintained by the script for HPIA to find
 
 $HPModelsTable = @(
 	@{ ProdCode = '83EE'; Model = 'HP ProDesk 600 G4 Small Form Factor PC' } 
 	@{ ProdCode = '83B2'; Model = 'HP EliteBook 840 G5 Notebook PC' ; AddOns = 'Hotkey', 'Notifications' } 
 	@{ ProdCode = '8723'; Model = 'HP EliteBook 840 G7 Notebook PC' ; AddOns = 'Hotkey', 'Notifications' } 
-	@{ ProdCode = '876D'; Model = 'HP EliteBook x360 1030 G7 Notebook PC' ; AddOns = 'Hotkey', 'Notifications', 'Presence' }
+	@{ ProdCode = '876D'; Model = 'HP EliteBook x360 1030 G7 Notebook PC' ; AddOns = 'Hotkey', 'Notifications' , 'Presence'}
 	)
 
 #-------------------------------------------------------------------
@@ -67,7 +67,7 @@ $v_KeepFilters = $False               # 7/31 NEW: setting to keep filters (scrip
 $FileServerName = $Env:COMPUTERNAME 
 
 # Folder to use for multiple repositories/one per model
-$v_Root_IndividualRepoFolder = "C:\HPIA_Repo_Head"
+$v_Root_IndividualRepoFolder = "C:\HPIA_Repo_Head1"
 
 # and this for use when selecting a single repository 
 $v_Root_CommonRepoFolder = "C:\HPIACommonRepository3"
