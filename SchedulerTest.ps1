@@ -25,7 +25,7 @@
 
 $HPIABlock = { 
     & Set-Location 'C:\Users\Administrator.VIAMONSTRA\Documents\Manageability_demo_files\Scripts\WiP'
-    & .\HPIARepo_Downloader_1.62.ps1 -ListFilters -RepoStyle individual -ShowActivityLog -Sync -NoIniSw -Products 80D4,8549,8470 -newLog 
+    & .\HPIARepo_Downloader_1.83.ps1 -ListFilters -RepoStyle individual -ShowActivityLog -Sync -NoIniSw -Products 80D4,8549,8470 -newLog 
 }
 
 # let's schedule the Downloader as a Windows Task job
