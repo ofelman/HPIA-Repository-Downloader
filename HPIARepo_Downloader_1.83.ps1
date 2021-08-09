@@ -2531,7 +2531,7 @@ Function CreateForm {
     $updateCMCheckbox = New-Object System.Windows.Forms.CheckBox
     $updateCMCheckbox.Text = 'Update Packages /'
     $updateCMCheckbox.Autosize = $true
-    $updateCMCheckbox.Location = New-Object System.Drawing.Point(($LeftOffset),($TopOffset-5))   # (from left, from top)
+    $updateCMCheckbox.Location = New-Object System.Drawing.Point(($LeftOffset-20),($TopOffset-5))   # (from left, from top)
 
     # populate CM Udate checkbox from .INI variable setting - $v_UpdateCMPackages
     $find = "^[\$]v_UpdateCMPackages"
@@ -2568,7 +2568,7 @@ Function CreateForm {
     $CMDistributeheckbox = New-Object System.Windows.Forms.CheckBox
     $CMDistributeheckbox.Text = 'Update DPs'
     $CMDistributeheckbox.Autosize = $true
-    $CMDistributeheckbox.Location = New-Object System.Drawing.Point(($LeftOffset+120),($TopOffset-5))
+    $CMDistributeheckbox.Location = New-Object System.Drawing.Point(($LeftOffset+125),($TopOffset-5))
 
     # populate CM Udate checkbox from .INI variable setting - $v_DistributeCMPackages
     $find = "^[\$]v_DistributeCMPackages"
@@ -2624,7 +2624,7 @@ Function CreateForm {
     $HPIAPathField = New-Object System.Windows.Forms.TextBox
     $HPIAPathField.Text = "$HPIACMPackage - $v_HPIAPath"
     $HPIAPathField.Multiline = $false 
-    $HPIAPathField.location = New-Object System.Drawing.Point(($LeftOffset+100),($TopOffset-5)) # (from left, from top)
+    $HPIAPathField.location = New-Object System.Drawing.Point(($LeftOffset+120),($TopOffset-5)) # (from left, from top)
     $HPIAPathField.Size = New-Object System.Drawing.Size(320,$FieldHeight)                      # (width, height)
     $HPIAPathField.ReadOnly = $true
     $HPIAPathField.Name = "v_HPIAPath"
