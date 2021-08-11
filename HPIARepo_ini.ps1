@@ -9,6 +9,8 @@
     Separated script variables that can ne mod by Downloader
 #>
 
+$FileServerName = $Env:COMPUTERNAME 
+
 # set $OS as a read-only script variable with value of 'Win10'
 if ( Test-Path variable:OS) {
     Set-Variable -Name OS -value "Win10" -Option ReadOnly -ErrorAction SilentlyContinue
@@ -64,7 +66,6 @@ $v_KeepFilters = $False               # 7/31 NEW: setting to keep filters (scrip
 #-------------------------------------------------------------------
 # choose/edit a (hardcoded or share) path from next 2 entries for repository locations
 
-$FileServerName = $Env:COMPUTERNAME 
 
 $v_Root_IndividualRepoFolder = "C:\HPIA_Repo_Head"    # Root Folder for multiple repositories/one per model
 $v_Root_CommonRepoFolder = "C:\HPIACommonRepository5" # and this for use when selecting a single repository
