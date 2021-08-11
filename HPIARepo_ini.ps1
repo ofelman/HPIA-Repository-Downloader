@@ -15,17 +15,17 @@ if ( Test-Path variable:OS) {
 } else {
     New-Variable -Name OS -value "Win10" -Option ReadOnly
 }
-$v_OSVALID = @("1809", "1909", "2004", "2009", "2104")
+$v_OSVALID = @("1809", "1909", "2009", "21H1")
 
 # these are the Categories to be selected by HP IA, as needed from the repository
 $v_FilterCategories = @('Driver','BIOS', 'Firmware', 'Software')
 
-#-------------------------------------------------------------------
-#
+<#-------------------------------------------------------------------
 # NEW 1.30 - added list of individual softpaq names to maintain in repositories
 # ... if model table recreated in GUI, list will need to be added to each needed entry
-# ... THIS IS FOR FUTURE USE !!!!!!!!!!!!
-# 
+# ... NOW in version 1.86, script uses these Softpaq names !!!!!!!!!!!!
+# ... add any others as needed to this list
+#>
 $v_Softpaqs = @(
     'Hotkey', 'Notifications' , 'Presence', 'Tile', 'Power Manager', 'Easy Clean', 'Default Settings'
 )
@@ -66,13 +66,10 @@ $v_KeepFilters = $False               # 7/31 NEW: setting to keep filters (scrip
 
 $FileServerName = $Env:COMPUTERNAME 
 
-# Folder to use for multiple repositories/one per model
-$v_Root_IndividualRepoFolder = "C:\HPIA_Repo_Head"
+$v_Root_IndividualRepoFolder = "C:\HPIA_Repo_Head"    # Root Folder for multiple repositories/one per model
+$v_Root_CommonRepoFolder = "C:\HPIACommonRepository5" # and this for use when selecting a single repository
 
-# and this for use when selecting a single repository 
-$v_Root_CommonRepoFolder = "C:\HPIACommonRepository3"
-
-$v_CommonRepo = $True
+$v_CommonRepo = $True                                 # $True = using common/shared repository
 
 #-------------------------------------------------------------------
 # next settings for connecting with Microsoft SCCM/MECM
