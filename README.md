@@ -87,4 +87,8 @@ Version 1.00
         Improves use of Add On Softpaqs in INI file and repositories
         New ability to add models to the list and create a new repository starting from scratch
         
+   Version 1.86
+        adds ability to include AddOns softpaqs (typically category Software) that the script will maintain outside of CMSL for HPIA use
+        few fixes
+        
 
