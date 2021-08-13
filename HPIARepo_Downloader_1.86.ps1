@@ -732,11 +732,12 @@ Function download_softpaqs_by_name {
             Set-Location $lAddSoftpaqsFolder
             CMTraceLog -Message "... Retrieving named Softpaqs for Platform:$pProdCode" -Type $TypeNorm
 
-            ForEach ( $Softpaq in $_.AddOns ) {
+            ForEach ( $iSoftpaq in $_.AddOns ) {
                 Try {
                     Get_HPServerIPConnection 'get-softpaqlist' $HPServerIPFile 2      # check connections with 2 secs delay
-                    $lListret = (Get-SoftpaqList -platform $pProdCode -os $OS -osver $Script:v_OSVER -characteristic SSM) 6>&1 
-                    $lListret | Where-Object { ($_.Name -match $Softpaq) -or ($_.Id -match $Softpaq) } | ForEach-Object {
+                    $lListret = (Get-SoftpaqList -platform $pProdCode -os $Script:OS -osver $Script:v_OSVER -characteristic SSM) 6>&1 
+                    #$lListret | ft | Out-Host ; pause
+                    $lListret | Where-Object { ($_.Name -match $iSoftpaq) -or ($_.Id -match $iSoftpaq) } | ForEach-Object {
                             if ($_.SSM -eq $true) {
                                 CMTraceLog -Message "      [Get Softpaq] - $($_.Id) ''$($_.Name)''" -Type $TypeNoNewLine
                                 if ( Test-Path "$($_.Id).exe" ) {
@@ -761,7 +762,7 @@ Function download_softpaqs_by_name {
                                     if ( $DebugMode ) { CMTraceLog -Message  "... Get-SoftpaqMetadataFile done: $($ret)"  -Type $TypeWarn }
                                 } # else if ( Test-Path "$($_.Id).exe" )
                             } else {
-                                CMTraceLog -Message "      [Get Softpaq] - $($_.Id) ''$Softpaq'' not SSM compliant" -Type $TypeWarn
+                                CMTraceLog -Message "      [Get Softpaq] - $($_.Id) ''$iSoftpaq'' not SSM compliant" -Type $TypeWarn
                             } # else if ($_.SSM -eq $true)
 
                         } # ForEach-Object
@@ -779,11 +780,11 @@ Function download_softpaqs_by_name {
                         #--------------------------------------------------------------------------------
                 }
                 Catch {
-                    $lerrMsg = "      [Get-SoftpaqList] $($lListret)... 'exception -platform:$($pProdCode) -osver:$($v_OSVER) - Filter NOT Supported!" 
+                    $lerrMsg = "      [Get-SoftpaqList] $($lListret)... 'exception -platform:$($pProdCode) -osver:$($Script:v_OSVER) - Filter NOT Supported!" 
                     CMTraceLog -Message $lerrMsg -Type $TypeError
                 } # Catch
                     
-            } # ForEach ( $Softpaq in $_.AddOns )
+            } # ForEach ( $iSoftpaq in $_.AddOns )
 
         } # if ( ($_.ProdCode -match $pProdCode) -and $pINISWSelected )
     } # ForEach-Object
@@ -2601,7 +2602,7 @@ Function CreateForm {
                 } # if  
             } # for ($i = 0; $i -lt $dataGridView.RowCount; $i++)
             if ( $Script:NewLog  ) {
-                Backup_Log $LogFile
+                Backup_Log $Script:v_LogFile
             }
             if ( $updateCMCheckbox.checked ) {
                 if ( ($Script:CMConnected = Test_CMConnection) ) {
@@ -2960,7 +2961,7 @@ if ( $MyInvocation.BoundParameters.count -eq 0) {
 } else {
     $RunUI = $false
 
-    if ( $PSBoundParameters.Keys.Contains('newLog') ) { Backup_Log $LogFile } 
+    if ( $PSBoundParameters.Keys.Contains('newLog') ) { Backup_Log $Script:v_LogFile } 
     CMTraceLog -Message 'HPIARepo_Downloader - BEGIN'
     CMTraceLog -Message 'Script Path: '$ScriptPath
     CMTraceLog -Message 'Script Name: '$scriptName
