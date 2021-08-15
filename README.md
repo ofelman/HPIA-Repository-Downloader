@@ -91,4 +91,7 @@ Version 1.00
         adds ability to include AddOns softpaqs (typically category Software) that the script will maintain outside of CMSL for HPIA use
         few fixes
         
-
+    Version 1.87
+        added enhanced reporting of what softpaq names get added when selecting 'New Model'
+        AddOns platform flag file (named after platfor ID) shows full softpaq names obtained from actual softpaq list
+        Note, if adding to existing repository, it is useful to set the 'Keep prev OS Filters' enabled to maintain other models in list
