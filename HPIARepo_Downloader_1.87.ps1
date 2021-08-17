@@ -275,7 +275,7 @@ Function OutToForm {
         $pTextBox.Refresh()
         $pTextBox.ScrollToCaret()
     } else {
-        $pMessage
+        $pMessage | Out-Host
     }
 } # Function OutToForm
 
@@ -818,7 +818,7 @@ Function Sync_and_Cleanup_Repository {
         Set-Location -Path $pFolder
 
         #--------------------------------------------------------------------------------
-        CMTraceLog -Message  '... [Sync_and_Cleanup_Repository] - please wait !!!' -Type $TypeNorm
+        CMTraceLog -Message  "... [Sync_and_Cleanup_Repository] - <$pFolder> - please wait !!!" -Type $TypeNorm
 
         # but first let's start a look at what connections (port 443) are being used, wait 2 seconds
         Get_HPServerIPConnection 'invoke-repositorysync' $HPServerIPFile 2
@@ -1186,59 +1186,63 @@ Function clear_grid {
 #=====================================================================================
 <#
     Function list_filters
-        List filters to log file... function ONLY called from runstring option
-        ... lists filters for both single, common or individual repositories
+        List filters for single/common or individual repositories
 #>
 Function list_filters {
+    [CmdletBinding()]
+	param( $pCommon )  
 
     $lCurrentSetLoc = Get-Location
 
-    if ( $Script:v_CommonRepo ) {
-        # basic check to confirm the repository was configured for HPIA
-        if ( !(Test-Path "$($Script:v_Root_CommonRepoFolder)\.Repository") ) {
-            CMTraceLog -Message "... Common Repository Folder selected, not initialized" -Type $TypeNorm 
-            "... Common Repository Folder selected, not initialized for HPIA"
-            return
-        } 
-        set-location $Script:v_Root_CommonRepoFolder
-        $lProdFilters = (get-repositoryinfo).Filters
-        foreach ( $filterSetting in $lProdFilters ) {
-            $lMsg = "`t-Platform $($filterSetting.platform) -OS $($filterSetting.operatingSystem) -Category $($filterSetting.category) -Characteristic $($filterSetting.characteristic)"
-            if ( $Products ) {
-                if ( $filterSetting.platform -in $Products ) {
-                    CMTraceLog -Message $lMsg -Type $TypeNorm
-                } # if ( $filterSetting.platform -in $Products )
-            } else {
-                CMTraceLog -Message $lMsg -Type $TypeNorm
-            }
-        } # foreach ( $filterSetting in $lProdFilters )
-    } else {
-        # basic check to confirm the head repository exists
-        if ( !(Test-Path $Script:v_Root_IndividualRepoFolder) ) {
-            CMTraceLog -Message "... Shared/Individual Repository Folder selected, requested folder NOT found" -Type $TypeNorm
-            "... Shared/Individual Repository Folder selected, Head repository not initialized"
-            return
-        } 
-        set-location $Script:v_Root_IndividualRepoFolder | where {($_.psiscontainer)}
+    switch ( $pCommon ) {
+        $True { '--Common Repo Filters' | Out-Host 
+                # basic check to confirm the repository was configured for HPIA
+                if ( !(Test-Path "$($Script:v_Root_CommonRepoFolder)\.Repository") ) {
+                    CMTraceLog -Message "... Common Repository Folder selected, not initialized" -Type $TypeNorm 
+                    "... Common Repository Folder selected, not initialized for HPIA"
+                    return
+                } 
+                set-location $Script:v_Root_CommonRepoFolder
+                $lProdFilters = (get-repositoryinfo).Filters
+                foreach ( $filterSetting in $lProdFilters ) {
+                    $lMsg = "`t-Platform $($filterSetting.platform) -OS $($filterSetting.operatingSystem) -Category $($filterSetting.category) -Characteristic $($filterSetting.characteristic)"
+                    if ( $Products ) {
+                        if ( $filterSetting.platform -in $Products ) {
+                            CMTraceLog -Message $lMsg -Type $TypeNorm
+                        } # if ( $filterSetting.platform -in $Products )
+                    } else {
+                        CMTraceLog -Message $lMsg -Type $TypeNorm
+                    }
+                } # foreach ( $filterSetting in $lProdFilters )
+            } # $True
+        $False { '--Individual Repo Filters' | Out-Host 
+                # basic check to confirm the head repository exists
+                if ( !(Test-Path $Script:v_Root_IndividualRepoFolder) ) {
+                    CMTraceLog -Message "... Shared/Individual Repository Folder selected, requested folder NOT found" -Type $TypeNorm
+                    "... Shared/Individual Repository Folder selected, Head repository not initialized"
+                    return
+                } 
+                set-location $Script:v_Root_IndividualRepoFolder | where {($_.psiscontainer)}
 
-        # let's traverse every product Repository folder
-        $lProdFolders = Get-ChildItem -Path $Script:v_Root_IndividualRepoFolder
+                # let's traverse every product Repository folder
+                $lProdFolders = Get-ChildItem -Path $Script:v_Root_IndividualRepoFolder
 
-        foreach ( $lprodName in $lProdFolders ) {
-            set-location "$($Script:v_Root_IndividualRepoFolder)\$($lprodName.name)"
-            $lProdFilters = (get-repositoryinfo).Filters
-            $lprods = $lProdFilters.platform.split()       # if multiple filters, each will have same ProdCode, so just show one [0]
-            $lcharacteristics = $lProdFilters.characteristic | Get-Unique
-            $lMsg = "`t-Platform $($lprods[0]) -OS $($lProdFilters.operatingSystem) -Category $($lProdFilters.category) -Characteristic $($lcharacteristics)"
-            if ( $Products ) {
-                if ( $lprods[0] -in $Products ) {
-                    CMTraceLog -Message $lMsg -Type $TypeNorm
-                } # if ( $lprods[0] -in $Products )
-            } else {
-                CMTraceLog -Message $lMsg -Type $TypeNorm
-            }
-        } # foreach ( $lprodName in $lProdFolders )
-    } # else if ( $Script:v_CommonRepo )
+                foreach ( $lprodName in $lProdFolders ) {
+                    set-location "$($Script:v_Root_IndividualRepoFolder)\$($lprodName.name)"
+                    $lProdFilters = (get-repositoryinfo).Filters
+                    $lprods = $lProdFilters.platform.split()       # if multiple filters, each will have same ProdCode, so just show one [0]
+                    $lcharacteristics = $lProdFilters.characteristic | Get-Unique
+                    $lMsg = "`t-Platform $($lprods[0]) -OS $($lProdFilters.operatingSystem) -Category $($lProdFilters.category) -Characteristic $($lcharacteristics)"
+                    if ( $Products ) {
+                        if ( $lprods[0] -in $Products ) {
+                            CMTraceLog -Message $lMsg -Type $TypeNorm
+                        } # if ( $lprods[0] -in $Products )
+                    } else {
+                        CMTraceLog -Message $lMsg -Type $TypeNorm
+                    }
+                } # foreach ( $lprodName in $lProdFolders )
+            } # $False
+    } # switch ( $Script:v_CommonRepo )
 
     Set-Location -Path $lCurrentSetLoc
 
@@ -1313,7 +1317,7 @@ Function Get_CommonRepofilters {
                     } # if ( Test-Path $lAddOnRepoFile )
                 } 
             } else {
-                List_Filters
+                List_Filters $True
             } # else if ( $pRefreshGrid )
         } # for ( $i = 0; $i -lt $pDataGrid.RowCount; $i++ )
     } # foreach ( $filter in $lProdFilters )
@@ -1383,6 +1387,7 @@ Function Get_IndividualRepofilters {
                     }
                 } else {                           # just list the filters, no grid refresh
                     CMTraceLog -Message "... Platform $($lProdFilters.platform) ... $($lProdFilters.operatingSystem) $($lProdFilters.category) $($lProdFilters.characteristic) - @$($lTempRepoFolder)" -Type $TypeWarn
+                    List_Filters $False
                 }
             } # foreach ( $platform in $lProdFilters )
 
@@ -2519,7 +2524,7 @@ Function CreateForm {
 
     $ListFiltersdButton_Click={
         CMTraceLog -Message 'HPIA Repository Filters found...' -Type $TypeNorm
-        List_Filters
+        List_Filters $Script:v_CommonRepo
     } # $ListFiltersdButton_Click={
 
     $ListFiltersdButton.add_Click($ListFiltersdButton_Click)
@@ -2978,10 +2983,7 @@ Function CreateForm {
 
 # in case we need to browse for a file, create the object now
 	
-#Add-Type -AssemblyName System.Windows.Forms
 $FileBrowser = New-Object System.Windows.Forms.OpenFileDialog -Property @{ InitialDirectory = [Environment]::GetFolderPath('Desktop') }
-
-#$null = $FileBrowser.ShowDialog()
 
 if ( $MyInvocation.BoundParameters.count -eq 0) {
     CreateForm                            # Create the GUI and take over all actions, like Report and Download
@@ -2990,18 +2992,18 @@ if ( $MyInvocation.BoundParameters.count -eq 0) {
 
     if ( $PSBoundParameters.Keys.Contains('newLog') ) { Backup_Log $Script:v_LogFile } 
     CMTraceLog -Message 'HPIARepo_Downloader - BEGIN'
-    CMTraceLog -Message 'Script Path: '$ScriptPath
-    CMTraceLog -Message 'Script Name: '$scriptName
-    CMTraceLog -Message "$MyInvocation.BoundParameters.Keys: $($MyInvocation.BoundParameters.Keys)"
-    CMTraceLog -Message "$MyInvocation.BoundParameters.Values: $($MyInvocation.BoundParameters.Values)"
+    CMTraceLog -Message "Script Path: $ScriptPath"
+    CMTraceLog -Message "Script Name: $scriptName"
+    CMTraceLog -Message "Runtime Parameters: $($MyInvocation.BoundParameters.Keys)"
+    #CMTraceLog -Message "$MyInvocation.BoundParameters.Values: $($MyInvocation.BoundParameters.Values)"
     if ( $PSBoundParameters.Keys.Contains('IniFile') ) { '-iniFile: ' + $inifile }
     if ( $PSBoundParameters.Keys.Contains('RepoStyle') ) { if ( $RepoStyle -match 'Common' ) { '-RepoStyle: ' + $RepoStyle
-            $v_CommonRepo = $true } else { $v_CommonRepo = $false }  } 
+            $v_CommonRepo = $true } else { $Script:v_CommonRepo = $false }  } 
     if ( $PSBoundParameters.Keys.Contains('Products') ) { "-Products: $($Products)" }
-    if ( $PSBoundParameters.Keys.Contains('ListFilters') ) { list_filters }
+    if ( $PSBoundParameters.Keys.Contains('ListFilters') ) { list_filters $Script:v_CommonRepo }
     if ( $PSBoundParameters.Keys.Contains('NoIniSw') ) { '-NoIniSw' }
     if ( $PSBoundParameters.Keys.Contains('showActivityLog') ) { $showActivityLog = $true } 
-    if ( $PSBoundParameters.Keys.Contains('Sync') ) { sync_repos $v_CommonRepo }
+    if ( $PSBoundParameters.Keys.Contains('Sync') ) { sync_repos $Script:v_CommonRepo }
 
 } # if ( $MyInvocation.BoundParameters.count -gt 0)
 
