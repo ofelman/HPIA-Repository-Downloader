@@ -1,76 +1,70 @@
 <#
     File: HPIARepo_ini.ps1
-
     Dan Felman/HP Inc
-    07/27/2021
+    08/10/2021
     Updated for Downloader script version >= 1.76
-
     modify variables as need for use by the Downloader script
-    Separated script variables that can ne mod by Downloader
+    Separated script variables that can mod by Downloader
 #>
 
 $FileServerName = $Env:COMPUTERNAME 
-
+#-------------------------------------------------------------------
 # set $OS as a read-only script variable with value of 'Win10'
 if ( Test-Path variable:OS) {
     Set-Variable -Name OS -value "Win10" -Option ReadOnly -ErrorAction SilentlyContinue
 } else {
     New-Variable -Name OS -value "Win10" -Option ReadOnly
 }
-$v_OSVALID = @("1809", "1909", "2009", "21H1")
+#-------------------------------------------------------------------
+$v_OSVALID = @("1809", "1909", "2009", "21H1", "21H2")
 
 # these are the Categories to be selected by HP IA, as needed from the repository
 $v_FilterCategories = @('Driver','BIOS', 'Firmware', 'Software')
 
 <#-------------------------------------------------------------------
-# NEW 1.30 - added list of individual softpaq names to maintain in repositories
-# ... if model table recreated in GUI, list will need to be added to each needed entry
-# ... NOW in version 1.86, script uses these Softpaq names !!!!!!!!!!!!
-# ... add any others as needed to this list
+Since version 1.86, script uses these Softpaq names to help populate Platfor ID AddOns flag file
+... add, remove any as needed to this list
+... these names will be shown in a dialog when adding a model to the display list to sync
 #>
 $v_Softpaqs = @(
-    'Hotkey', 'Notifications' , 'Presence', 'Tile', 'Power Manager', 'Easy Clean', 'Default Settings'
+    'Notifications', 'HP Collaboration Keyboard Software', 'Presence', 'Tile', 'Power Manager', 'Easy Clean', 'Default Settings', 'MIK', 'Privacy'
 )
-# EXAMPLE: 
-
-# { ProdCode = '8723'; Model = 'HP ZBook Firefly 14 G7 Mobile Workstation' ; AddOns = 'Hotkey', 'Notifications' }
+#-------------------------------------------------------------------
 
 # HP Models to be listed in the GUI
 # NOTE: field AddOns is optional in the model list, and contain additional HP Softpaqs to be added
 #     and maintained by the script for HPIA to find
 
 $HPModelsTable = @(
-	@{ ProdCode = '83EE'; Model = 'HP ProDesk 600 G4 Small Form Factor PC' } 
-	@{ ProdCode = '83B2'; Model = 'HP EliteBook 840 G5 Notebook PC' ; AddOns = 'Hotkey', 'Notifications' } 
-	@{ ProdCode = '8723'; Model = 'HP EliteBook 840 G7 Notebook PC' ; AddOns = 'Hotkey', 'Notifications' } 
-	@{ ProdCode = '876D'; Model = 'HP EliteBook x360 1030 G7 Notebook PC' ; AddOns = 'Hotkey', 'Notifications', 'Presence' }
-	)
+	@{ ProdCode = '80FC'; Model = 'HP Elite x2 1012 G1 Tablet' } 
+	@{ ProdCode = '8438'; Model = 'HP EliteBook x360 1030 G3 Notebook PC' }
+       )
+
 
 #-------------------------------------------------------------------
 $v_LogFile = "$PSScriptRoot\HPDriverPackDownload.log"          # Default to location where script runs from
 
-# if there errors during startup, set this to $true, for additional info
+# if there errors during startup, set this to $true, for additional info sent to console
 $v_DebugMode = $false                                          # Setting managed in GUI (temporarily)
 
 ####################################################################################
 #
-# Settings managed by Script GUI - these are the defaults read by the script
+# Settings managed by Script GUI - these are the defaults read by the script at startup
 #
 ####################################################################################
 
 $v_OSVER = "2009"
 
 $v_Continueon404 = $False
-$v_KeepFilters = $False               # 7/31 NEW: setting to keep filters (script version 1.35)
+$v_KeepFilters = $False
 
 #-------------------------------------------------------------------
 # choose/edit a (hardcoded or share) path from next 2 entries for repository locations
 
+$v_Root_IndividualRepoFolder = "C:\HPIA_Repo_Head"
+$v_Root_CommonRepoFolder = "C:\HPIA_NEW3"
 
-$v_Root_IndividualRepoFolder = "C:\HPIA_Repo_Head"    # Root Folder for multiple repositories/one per model
-$v_Root_CommonRepoFolder = "C:\HPIACommonRepository5" # and this for use when selecting a single repository
-
-$v_CommonRepo = $True                                 # $True = using common/shared repository
+$v_CommonRepo = $True
 
 #-------------------------------------------------------------------
 # next settings for connecting with Microsoft SCCM/MECM
