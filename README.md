@@ -95,3 +95,8 @@ Version 1.00
         added enhanced reporting of what softpaq names get added when selecting 'New Model'
         AddOns platform flag file (named after platfor ID) shows full softpaq names obtained from actual softpaq list
         Note, if adding to existing repository, it is useful to set the 'Keep prev OS Filters' enabled to maintain other models in list
+        
+    Version 1.90
+        reworked AddOns use. Will not use platform flag files in the repository .ADDSOFTWARE folder instead of the AddOns entry in the INI file
+        reformatted information output for clarity
+        NOTE: on start, the script will always take precedence from the repository filters instead of the models entries in the INI file
