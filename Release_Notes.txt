@@ -87,3 +87,5 @@
         bug fixes
         added 'Create Repos' button to create HPIA repositories without sync'd softpaqs (to be added later by user)
         added ability (dialog) to manage addons flag file with softpaq names (partial names accepted)
+    version 1.92
+    	bug fixes... improvements when reading existing individual repositories
