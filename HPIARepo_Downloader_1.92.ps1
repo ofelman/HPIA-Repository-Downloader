@@ -38,7 +38,7 @@ param(
     [Switch]$Sync                                 # $help is set to $true if '-help' passed as argument                                            
 ) # param
 
-$ScriptVersion = "1.92.00 (January 14, 2022)"
+$ScriptVersion = "1.92.00 (January 18, 2022)"
 
 Function Show_Help {
     
