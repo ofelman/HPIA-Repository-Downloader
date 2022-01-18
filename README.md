@@ -104,3 +104,5 @@ Version 1.00
         bug fixes
         added ability (dialog) to manage addons flag file with softpaq names (partial names accepted)... every time you check the AddOns cell a dialog
         allows the maintenance of the optional softpaqs to maintain... Note that existing Softpaqs in .ADDSOFTWARE folder are not removed
+   Version 1.92
+        bug fixes
