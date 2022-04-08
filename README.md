@@ -106,3 +106,5 @@ Version 1.00
         allows the maintenance of the optional softpaqs to maintain... Note that existing Softpaqs in .ADDSOFTWARE folder are not removed
    Version 1.92
         bug fixes
+    Version 2.00
+        Adds support for Windows 11. Version 2.00 requires the use of an updated HPIARepo_INI.ps1 file, which includes new variables to support Windows 11 and has separate OS version variables, one per OS. To use Version 2.00, download both the main and new INI script files
