@@ -89,3 +89,5 @@
         added ability (dialog) to manage addons flag file with softpaq names (partial names accepted)
     version 1.92
     	bug fixes... improvements when reading existing individual repositories
+    Version 2.00
+	supports Windows 11. Requires an updated version of the HPIARepo_INI.ps1 config file
