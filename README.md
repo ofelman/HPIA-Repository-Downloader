@@ -110,3 +110,5 @@ Version 1.00
         Adds support for Windows 11. Version 2.00 requires the use of an updated HPIARepo_INI.ps1 file, which includes new variables to support Windows 11 and has separate OS version variables, one per OS. To use Version 2.00, download both the main and new INI script files
     Version 2.01
         Fix for Browsing an individual rooted repository. now displays correctly what is being imported
+    Version 2.02
+        Fix flag file error when adding new model to list (script still worked fine)
