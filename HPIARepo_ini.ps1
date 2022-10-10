@@ -1,7 +1,7 @@
 <#
     File: HPIARepo_ini.ps1
     Dan Felman/HP Inc
-    04/04/2022
+    10/10/2022
     Updated for Downloader script version >= 1.90
     modify variables as need for use by the Downloader script
     Separated script variables that can mod by Downloader
