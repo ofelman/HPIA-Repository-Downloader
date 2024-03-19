@@ -6,6 +6,7 @@
     modify variables as need for use by the Downloader script
     Separated script variables that can mod by Downloader
     Adding support for Win11 w/Downloader v2.00
+    added Windows 11/23H2 support
 #>
 
 $FileServerName = $Env:COMPUTERNAME 
@@ -16,8 +17,8 @@ $FileServerName = $Env:COMPUTERNAME
 
 $v_OPSYS = @("Win10", "Win11")
 #-------------------------------------------------------------------
-$v_OSVALID10 = @("1809", "1909", "2009", "21H1", "21H2","22H2")
-$v_OSVALID11 = @("21H2","22H2")
+$v_OSVALID10 = @("1809", "1909", "2009", "21H1", "21H2","22H2","22H2")
+$v_OSVALID11 = @("21H2","22H2","23H2")
 
 #-------------------------------------------------------------------
 
